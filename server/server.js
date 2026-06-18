@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/product"));
 
 connectDB();
 app.get("/", (req, res) => res.send("Hello World!"));
