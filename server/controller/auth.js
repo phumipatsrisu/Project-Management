@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const userExit = await User.findOne({ name, email });
+    const userExit = await User.findOne({ email });
 
     if (userExit) {
-      return res.status(400).json({ message: "This username is taken" });
+      return res.status(400).json({ message: "This email is taken" });
     }
 
     const salt = await bcrypt.genSalt(10);
