@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
     const userExit = await User.findOne({ name, email });
 
     if (userExit) {
-      return res.status(400).json({ message: "Username มีคนใช้แล้ว" });
+      return res.status(400).json({ message: "This username is taken" });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -24,11 +24,11 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const user = await User.findOne({ name, email });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "User or Email Not Found" });
+      return res.status(400).json({ message: "Email Not Found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -43,8 +43,12 @@ exports.login = async (req, res) => {
       },
     };
 
-    const token = jwt.sign(payload, "mySecretKey123", { expiresIn: "1d" });
-    res.status(200).json({ message: "login success", payload, token });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    res
+      .status(200)
+      .json({ message: "login success", user: payload.user, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
