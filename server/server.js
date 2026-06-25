@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/project"));
+app.use("/api", require("./routes/task"));
 
 connectDB();
 app.get("/", (req, res) => res.send("Hello World!"));
