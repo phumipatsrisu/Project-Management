@@ -82,3 +82,15 @@ exports.deleteTask = async (req, res) => {
     res.status(500).json({ message: "Server Error!" });
   }
 };
+
+// GET /api/projects/:projectId/tasks
+exports.getTasksByProject = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    const tasks = await Task.find({ project: projectId });
+    res.status(200).json({ message: "Tasks data!", tasks });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error!" });
+  }
+};
