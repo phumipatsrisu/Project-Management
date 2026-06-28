@@ -10,9 +10,9 @@ const {
 const { authCheck } = require("../middleware/auth");
 
 router.post("/tasks", authCheck, createTask);
-router.get("/tasks/:id", authCheck, getTaskById);
-router.put("/tasks/:id", authCheck, updateTask);
-router.delete("/tasks/:id", authCheck, deleteTask);
+router.get("/task/:id", authCheck, getTaskById);
+router.put("/task/:id", authCheck, updateTask);
+router.delete("/task/:id", authCheck, deleteTask);
 router.get("/projects/:projectId/tasks", authCheck, getTasksByProject);
 
 module.exports = router;

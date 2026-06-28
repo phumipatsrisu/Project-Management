@@ -52,7 +52,7 @@ exports.updateTask = async (req, res) => {
         assignee,
         dueDate,
       },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!newTask) {

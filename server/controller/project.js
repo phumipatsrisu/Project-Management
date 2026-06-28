@@ -54,6 +54,7 @@ exports.updateProject = async (req, res) => {
       { projectName, description },
       {
         new: true,
+        runValidators: true,
       },
     );
     if (!project) {
