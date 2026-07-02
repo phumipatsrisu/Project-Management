@@ -23,7 +23,7 @@ exports.getProject = async (req, res) => {
   try {
     const projects = await Project.find({
       $or: [{ owner: req.user.id }, { members: req.user.id }],
-    });
+    }).populate("owner", "name email");
     res.status(200).json({ message: "Project data!", projects });
   } catch (error) {
     console.log(error);
